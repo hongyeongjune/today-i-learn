@@ -8,3 +8,5 @@
 
 ### React
 * [jsx란?](https://github.com/hongyeongjune/today-i-learn/blob/master/react-jsx/jsx%EB%9E%80%3F.md)
+* [useEffect](https://github.com/hongyeongjune/today-i-learn/blob/master/react/useEffect.md)
+* [useEffect 첫 렌더링 시 두번 실행되는 이유](https://github.com/hongyeongjune/today-i-learn/blob/master/react/useEffect%20%EC%B2%AB%20%EB%A0%8C%EB%8D%94%EB%A7%81%20%EC%8B%9C%20%EB%91%90%EB%B2%88%20%EC%8B%A4%ED%96%89%EB%90%98%EB%8A%94%20%EC%9D%B4%EC%9C%A0.md)
