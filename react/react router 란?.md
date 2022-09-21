@@ -53,3 +53,29 @@ ReactDOM.render(
   <Route path="about" element={<AboutPage />} />
 </Routes>
 ```
+
+#### useParams
+> https://devdocs.io/react_router/index#useparams
+
+* Route path에 의해 매치된 현재 URL의 동적 파라미터 값을 꺼내올 때 사용한다.
+```javascript
+import * as React from 'react';
+import { Routes, Route, useParams } from 'react-router-dom';
+
+function ProfilePage() {
+  // Get the userId param from the URL.
+  let { userId } = useParams();
+  // ...
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="users">
+        <Route path=":userId" element={<ProfilePage />} />
+        <Route path="me" element={...} />
+      </Route>
+    </Routes>
+  );
+}
+```
