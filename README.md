@@ -5,6 +5,7 @@
 
 ### SpringDataJpa
 * [JPA에서 save 시 쿼리가 한번 더 날라가는 이슈](https://github.com/hongyeongjune/today-i-learn/blob/master/spring-jpa/JPA%EC%97%90%EC%84%9C%20save%EC%8B%9C%20select%20%EC%BF%BC%EB%A6%AC%EA%B0%80%20%ED%95%9C%EB%B2%88%20%EB%8D%94%20%EB%82%A0%EB%9D%BC%EA%B0%80%EB%8A%94%20%EC%9D%B4%EC%8A%88.md)
+* [OneToOne 관계에서 N+1발생](https://github.com/hongyeongjune/today-i-learn/blob/master/spring-jpa/OneToOne%EA%B4%80%EA%B3%84%EC%97%90%EC%84%9C%20N%2B1%20%EB%B0%9C%EC%83%9D.md)
 
 ### React
 * [jsx란?](https://github.com/hongyeongjune/today-i-learn/blob/master/react-jsx/jsx%EB%9E%80%3F.md)
