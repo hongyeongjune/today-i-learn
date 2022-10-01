@@ -79,3 +79,56 @@ function App() {
   );
 }
 ```
+
+### nestedRouter
+> https://reactrouter.com/en/v6.3.0/getting-started/overview#nested-routes
+
+* 부모 Router 안에 자식 Router를 중첩해서 사용할 수 있다.
+* 전체가 렌더링되는게 아니라 path에 따라 필요한 부분만 렌더링이 되는 아주 강력한 기능이다.
+
+* 아래 예시와 같이 Router를 중첩으로 사용한 다음에,
+```javascript
+function App() {
+  return (
+    <Routes>
+      <Route path="invoices" element={<Invoices />}>
+        <Route path=":invoiceId" element={<Invoice />} />
+        <Route path="sent" element={<SentInvoices />} />
+      </Route>
+    </Routes>
+  );
+}
+```
+
+* Outlet 이라는 키워드를 사용해서 어느 위치에 렌더링할 지 결정할 수 있다.
+```javascript
+function Invoices() {
+  return (
+    <div>
+      <h1>Invoices</h1>
+      <Outlet />
+    </div>
+  );
+}
+
+function Invoice() {
+  let { invoiceId } = useParams();
+  return <h1>Invoice {invoiceId}</h1>;
+}
+
+function SentInvoices() {
+  return <h1>Sent Invoices</h1>;
+}
+```
+
+### useMatch
+> https://reactrouter.com/en/v6.3.0/api#usematch
+
+* 현재 경로를 반환하는 메서드
+
+* declaration
+```javascript
+declare function useMatch<ParamKey extends string = string>(
+  pattern: PathPattern | string
+): PathMatch<ParamKey> | null;
+```
