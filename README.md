@@ -15,3 +15,4 @@
 
 ### Redux
 * [reudx](https://github.com/hongyeongjune/today-i-learn/blob/master/redux/redux.md)
+* [connect](https://github.com/hongyeongjune/today-i-learn/blob/master/redux/connect.md)
