@@ -14,5 +14,5 @@
 * [react router](https://github.com/hongyeongjune/today-i-learn/blob/master/react/react%20router.md)
 
 ### Redux
-* [reudx](https://github.com/hongyeongjune/today-i-learn/blob/master/redux/redux.md)
+* [redux](https://github.com/hongyeongjune/today-i-learn/blob/master/redux/redux.md)
 * [connect](https://github.com/hongyeongjune/today-i-learn/blob/master/redux/connect.md)
