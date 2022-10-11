@@ -1,6 +1,7 @@
 #### 참조
 > https://react-redux.js.org/api/connect
 > https://react-redux.js.org/using-react-redux/connect-mapstate
+> https://react-redux.js.org/using-react-redux/connect-mapdispatch
 
 ### connect()
 * connect() 함수는 리액트 컴포넌트와 리덕스 스토어를 연결해준다.
@@ -40,11 +41,11 @@ function connect(mapStateToProps?, mapDispatchToProps?, mergeProps?, options?)
   }
   ```
 
-### mapStateToProps의 반환값은 컴포넌트가 리렌더링할 지 결정한다.
-* React-Redux는 ```shouldComponentUpdate``` 메서드를 내부적으로ㅓ 구현하여, 컴포넌트가 필요한 데이터가 변경될 때 wrapper component가 리렌더링되도록 한다.
+#### mapStateToProps의 반환값은 컴포넌트가 리렌더링할 지 결정한다.
+* React-Redux는 ```shouldComponentUpdate``` 메서드를 내부적으로 구현하여, 컴포넌트가 필요한 데이터가 변경될 때 wrapper component가 리렌더링되도록 한다.
 * 기본적으로, ```mapStateToProps```에서 리턴 받은 객체의 내용이 달라졌는지 판단하기 위해 각 필드에 ```===``` 비교(shallow equality)를 사용한다. 
 
-### 새 객체 반환
+#### 새 객체 반환
 * React-Redux는 mapStateToProps의 결과값 변경 여부를 확인하기 위해 ```===```을 한다.
 * 새로운 객체 혹은 새로우 배열 참조 값을 리턴하면 데이터 내용이 같더라도 리렌더링을 유발한다.
 * new object or array reference를 생성하는 동작
@@ -52,5 +53,32 @@ function connect(mapStateToProps?, mapDispatchToProps?, mergeProps?, options?)
   * .concat 으로 배열 합치기
   * .slice 으로 부분 배열 선택
   * .assign 으로 값 복사
-  * spread operator {...oldState, ...newDate}로 값 복사
+  * spread operator {...oldState, ...newDate}로 값 복사0
 * memoized selector 함수를 사용하고 value가 변경되지 않으면 리렌더링이 일어나지 않아서 이걸 사용하도록 권장
+
+### mapDispatchToProps
+* connect 에 두번째 파라미터로 사용된다.
+* store에 액션을 디스패치하는데 사용된다.
+* action은 store의 상태를 변경하는 유일한 방법이다.
+* React-Redux를 사용하면 컴포넌트는 store에 직접적으로 접근할 수 없다. -> React-Redux는 액션을 디스패치하는 방법을 2가지 제공한다.
+  * 기본적으로 연결된 구성요소는 props.dispatch 작업 자체를 수신하고 전달할 수 있다.
+  ```javascript
+  function Counter({ count, dispatch }) {
+      return (
+          <div>
+            <button onClick={() => dispatch({ type: 'DECREMENT' })}>-</button>
+            <span>{count}</span>
+            <button onClick={() => dispatch({ type: 'INCREMENT' })}>+</button>
+            <button onClick={() => dispatch({ type: 'RESET' })}>reset</button>
+          </div>
+      )
+  }
+  ```
+  * connect()를 호출할 때 mapDispatchToProps 함수를 만들어서 전달할 수 있다.
+  ```javascript
+  // button needs to be aware of "dispatch"
+  <button onClick={() => dispatch({ type: "SOMETHING" })} />
+
+  // button unaware of "dispatch",
+  <button onClick={doSomething} />
+  ```
