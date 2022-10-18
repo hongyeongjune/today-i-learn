@@ -20,3 +20,6 @@
 * [redux](https://github.com/hongyeongjune/today-i-learn/blob/master/redux/redux.md)
 * [connect](https://github.com/hongyeongjune/today-i-learn/blob/master/redux/connect.md)
 * [redux-toolkit](https://github.com/hongyeongjune/today-i-learn/blob/master/redux/redux-toolkit.md)
+
+### 강연
+* [성장하는 개발자란?](https://github.com/hongyeongjune/today-i-learn/blob/master/lecture/%EC%84%B1%EC%9E%A5%ED%95%98%EB%8A%94%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%9E%80%3F.md)
