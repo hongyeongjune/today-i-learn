@@ -39,18 +39,23 @@ public class CglibRestController {
 * Spring에서는 프록시 패턴을 통해 AOP를 구현하게 됩니다.
 
 #### @Transactional 이 사용되는 곳에서 동작하는 Aspect
+![image](https://user-images.githubusercontent.com/39120763/196310667-7d5deced-12a9-40ce-b1e0-d3f214be11ad.png)
 
 #### Around를 사용하여 invokeWithInTransaction 메서드를 통해 AOP 진행
+![image](https://user-images.githubusercontent.com/39120763/196310695-ffbac659-141a-4190-82c4-e43e916e6a1b.png)
 
 #### 트랜잭션 실행 -> 구현 서비스 실행 -> 트랜잭션 해제
+![image](https://user-images.githubusercontent.com/39120763/196310712-835f7650-5829-4b0d-bb35-0d2dc1fac256.png)
 
 * 따라서, @Transactional 어노테이션을 사용하면 Spring AOP로 동작하게됩니다.
 
 
 * 처음에 스프링을 실행하면, CglibServiceImpl의 doSomething() 메서드는 Spring AOP로 동작하기 때문에 createAopProxy 메서드를 실행하게 됩니다.
 * 따라서, 첫 실행 시에는 인터페이스 혹은 Proxy 객체가 아니기 때문에 CGLIB로 생성하게 됩니다.
+![image](https://user-images.githubusercontent.com/39120763/196310740-79a311bd-34f0-467b-b78e-c9d29c167d4a.png)
 
 * 따라서 위의 코드를 실행 후 http://localhost:8080/cglib 를 실행하면, 다음 코드를 실행해서 확인해보면, CglibService에 EnhancerBySpringCGLIB이 적혀있는 것을 확인할 수 있습니다.
+![image](https://user-images.githubusercontent.com/39120763/196310749-01e9f946-3fea-45d1-81f0-af5465548df2.png)
 
 * 그렇다면 여기서 한가지 의문이 들 수도 있습니다. (실제로 제 친구도 했던 질문입니다.)
 
@@ -63,4 +68,8 @@ public class CglibRestController {
 > Since Spring Framework has a shaded copy of CGLIB these days, there was very little reason not to use it out-of-the-box.
 
 * 그럼 관련 설정을 하고나서 다시 실행해보겠습니다.
+![image](https://user-images.githubusercontent.com/39120763/196310768-df11e18f-f7b3-432e-a769-52b6f02c6160.png)
+![image](https://user-images.githubusercontent.com/39120763/196310790-1ab26636-ce45-48c6-b4c9-66de601600bb.png)
+
+
 * 위 그림과 같이 JDK Dynamic Proxy로 들어온 것을 확인할 수 있습니다.
