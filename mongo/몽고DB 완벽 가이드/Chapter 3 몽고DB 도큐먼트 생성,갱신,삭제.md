@@ -71,3 +71,84 @@ ordered|boolean|입력한 순서대로 삽입할 지 결정하는 값 (default: 
    }
 )
 ```
+
+#### 삽입 유효성 검사
+> https://www.mongodb.com/docs/manual/core/schema-validation/
+
+* 몽고DB는 삽입된 데이터의 최소한의 검사를 수행한다.
+* 도큐먼트의 기본 구조를 검사해 "_id" 필드가 존재하지 않으면 새로 추가하고, 모든 도큐먼트는 16메가바이트보다 작아야하므로 크기를 검사한다.
+* 혹은 도큐먼트가 너무 크진 않은지, UTF-8 문자열인지, 인식할 수 없는 데이터인지 확인한다.
+
+### 도큐먼트 삭제
+#### deleteOne
+> https://www.mongodb.com/docs/manual/reference/method/db.collection.deleteOne/
+
+```
+db.collection.deleteOne(
+   <filter>,
+   {
+      writeConcern: <document>,
+      collation: <document>,
+      hint: <document|string>        // Available starting in MongoDB 4.4
+   }
+)
+```
+* deleteOne은 필터와 일치하는 첫 번째 도큐먼트를 삭제한다.
+
+#### deleteMany
+> https://www.mongodb.com/docs/manual/reference/method/db.collection.deleteMany/
+
+```
+db.collection.deleteMany(
+   <filter>,
+   {
+      writeConcern: <document>,
+      collation: <document>
+   }
+)
+```
+* deleteMany는 필터와 일치하는 모든 도큐먼트를 삭제한다.
+
+#### drop
+* 모든 도큐먼트를 제거하는 방법은 ```db.collection.deleteMany({})``` 를 입력하면된다.
+* 하지만 drop을 쓰면 훨씬 빠르다.
+* delete 혹은 drop을 사용하여 제거한 데이터는 복구할 수 없다.
+
+### 도큐먼트 갱신
+#### updateOne
+> https://www.mongodb.com/docs/manual/reference/method/db.collection.updateOne/
+
+```
+db.collection.updateOne(
+   <filter>,
+   <update>,
+   {
+     upsert: <boolean>,
+     writeConcern: <document>,
+     collation: <document>,
+     arrayFilters: [ <filterdocument1>, ... ],
+     hint:  <document|string>        // Available starting in MongoDB 4.2.1
+   }
+)
+```
+* 필터 도큐먼트를 첫 번째 매개변수, 수정자 도큐먼트를 두 번째 매개변수로 사용
+* 갱신 요청 두 개가 동시에 발생하면 서버에 먼저 도착한 요청이 적용된 후 다음 요청이 적용된다. (동시성 문제가 발생할 일은 없음)
+  * Wired Tiger 스토리지 엔진 때문에
+
+#### replaceOne
+> https://www.mongodb.com/docs/manual/reference/method/db.collection.replaceOne/
+
+```
+db.collection.replaceOne(
+   <filter>,
+   <replacement>,
+   {
+     upsert: <boolean>,
+     writeConcern: <document>,
+     collation: <document>,
+     hint: <document|string>                   // Available starting in 4.2.1
+   }
+)
+```
+* replaceOne는 도큐먼트를 새로운 것으로 완전히 치환한다.
+* 스키마 마이그레이션에 유용
