@@ -134,6 +134,8 @@ db.collection.updateOne(
 * 필터 도큐먼트를 첫 번째 매개변수, 수정자 도큐먼트를 두 번째 매개변수로 사용
 * 갱신 요청 두 개가 동시에 발생하면 서버에 먼저 도착한 요청이 적용된 후 다음 요청이 적용된다. (동시성 문제가 발생할 일은 없음)
   * Wired Tiger 스토리지 엔진 때문에
+* upsert 옵션 사용 가능
+* 
 
 #### replaceOne
 > https://www.mongodb.com/docs/manual/reference/method/db.collection.replaceOne/
@@ -152,3 +154,61 @@ db.collection.replaceOne(
 ```
 * replaceOne는 도큐먼트를 새로운 것으로 완전히 치환한다.
 * 스키마 마이그레이션에 유용
+
+### 갱신한 도큐먼트 반환
+#### findOneAndUpdate
+> https://www.mongodb.com/docs/manual/reference/method/db.collection.findOneAndUpdate/
+
+```
+db.collection.findOneAndUpdate(
+   <filter>,
+   <update document or aggregation pipeline>, // Changed in MongoDB 4.2
+   {
+     projection: <document>,
+     sort: <document>,
+     maxTimeMS: <number>,
+     upsert: <boolean>,
+     returnDocument: <string>,
+     returnNewDocument: <boolean>,
+     collation: <document>,
+     arrayFilters: [ <filterdocument1>, ... ]
+   }
+)
+```
+
+* 3번 쨰 매개변수인 returnNewDocument 필드를 true로 설정하면 갱신된 도큐먼트를 치환한다.
+
+#### findOneAndReplace
+> https://www.mongodb.com/docs/manual/reference/method/db.collection.findOneAndReplace/
+
+```
+db.collection.findOneAndReplace(
+   <filter>,
+   <replacement>,
+   {
+     projection: <document>,
+     sort: <document>,
+     maxTimeMS: <number>,
+     upsert: <boolean>,
+     returnDocument: <string>,
+     returnNewDocument: <boolean>,
+     collation: <document>
+   }
+)
+```
+
+#### findOneAndDelete
+> https://www.mongodb.com/docs/manual/reference/method/db.collection.findOneAndDelete/
+
+```
+db.collection.findOneAndDelete(
+   <filter>,
+   {
+     writeConcern: <document>,
+     projection: <document>,
+     sort: <document>,
+     maxTimeMS: <number>,
+     collation: <document>
+   }
+)
+```
