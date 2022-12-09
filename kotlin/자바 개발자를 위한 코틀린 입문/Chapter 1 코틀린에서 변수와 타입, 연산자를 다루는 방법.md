@@ -71,6 +71,85 @@ fun startsWith(str: String?): Boolean {
     return str!!.startsWith("A")
 }
 ```
-* 플랫폼 타입
-  * Kotlin 에서 Java 코드를 가져다 사용할 때 어떻게 처리하는가?
-  * 
+
+### 코틀린에서 Type 을 다루는 방법
+* 코틀린에서는 암시적 타입 변경이 불가능하다.
+  * to변환타입()을 사용하면된다.
+  * nullable 이라면 적절한 처리가 필요하다.
+```kotlin
+fun main() {
+  val number1 = 3
+  val number2: Long = number1.toLong()
+  val number3 = 5
+  val result = number1 / number2.toDouble()
+  val number4: Int = 4
+  val number5: Long = number4?.toLong() ?: 0L
+}
+```
+* 타입 캐스팅 (일반 타입)
+  * value is Type
+    * value 가 Type 이면 true
+    * value 가 Type 이 아니면 false
+  * value !is Type
+    * value 가 Type 이면 false
+    * value 가 Type 이 아니면 true
+  * value as Type
+    * value 가 Type 이면 Type 으로 캐스팅
+    * value 가 Type 이 아니면 예외 발생
+  * value as? Type
+    * value 가 Type 이면 Type 으로 캐스팅
+    * value 가 Type 이 아니면 null
+    * value 가 null 이면 null
+```kotlin
+fun printAgeIfPerson(obj: Any) { 
+  if (obj is Person) { // 자바에서 obj instanceof Person 과 같다. 
+    val person = obj as Person // 자바에서 (Person) obj 와 같다.
+    println(person.age)
+  }
+  if (obj !is Person) { // 자바에서 !(obj instanceof Person) 과 같다.
+    println("not Person")
+  }
+}
+fun printAgeIfPerson(obj: Any?) {
+  val person = obj as? Person // null 이라면 전체가 null 이 되고 아니면 person 으로 변경
+  println(person?.age)
+}
+```
+* Any 타입
+  * Java 의 Object 역할 (모든 객체의 최상위 타입)
+  * 모든 Primitive Type 의 최상위 타입도 Any
+  * Any 자체로는 null 을 포함할 수 없어 null 을 포함하고 싶다면, Any?로 표현
+  * Any 에 equals / hashCode / toString 존재
+* Unit 타입
+  * Unit 은 자바의 void 와 동일한 역할
+* Nothing 타입
+  * Nothing 은 함수가 정상적으로 끝나지 않았다는 사실을 표현하는 역할
+  * 무조건 예외를 반환하는 함수 / 무한 루프 함수 등에서 사용
+```kotlin
+fun fail(message: String): Nothing {
+    throw IllegalArgumentException(message)
+}
+```
+* String interpolation / String indexing
+  * 문자열 타입 사용
+```kotlin
+val person = Person("홍영준", 100)
+// 자바에선 String.format() 을 사용했어야함
+// 중괄호 생략도 가능
+val log = "사람의 이름은 ${person.name}이고 나이는 ${person.age}세 입니다."
+```
+  * trimIndent (큰따옴표 세개) => """"""
+```kotlin
+val log = """
+    ABC
+    EFG
+""".trimIndent()
+// 결과물
+// ABC
+// EFG
+```
+  * 문자열의 특정 문자 가져오기
+```kotlin
+val str = "ABCDE"
+val ch = str[1]
+```
