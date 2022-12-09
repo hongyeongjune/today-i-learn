@@ -34,4 +34,14 @@
   * 아예 존재하지 않거나, 키가 null인 값을 쿼리하면 해당 키를 갖지 않는 도큐먼트도 반환한다.
   * 존재하는 값만 조회하고 싶으면 $exists를 사용하여 값이 null인 키만 찾는 조건을 추가해야한다.
 
-
+### 배열 쿼리 조건
+* $all
+  * 2개 이상의 배열 요소가 일치하는 배열을 찾기 위해 사용
+  * ex. ```db.collection.find({array : { $all : ["data1", "data2"] }})```
+* $size
+  * 특정 크기의 배열을 쿼리
+  * ex. ```db.collection.find({array : { $size : 3 }})```
+* $slice
+  * 배열요소의 부분집합을 반환받기 위해 사용
+  * 처음부터 10개 => ex. ```db.collection.find({array : { $slice : 10 }})```
+  * 최근 10개 => ex. ```db.collection.find({array : { $slice : -10 }})```
